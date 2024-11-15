@@ -15,11 +15,11 @@ output_dir="outputs/job_${SLURM_JOB_ID}"
 mkdir -p $output_dir
 
 # Define paths
-input_path="/work/forkert_lab/isles24_data/preprocessed/patient_001"
+input_path="/work/forkert_lab/isles24_data/preprocessed/0001"
 output_path="$output_dir"
 
 # Run the Python inference script and save logs
-python /work/forkert_lab/kirsten_andresen/scripts/ISLES2024-MIPLAB-CTA/inference.py \
+python /work/forkert_lab/kirsten_andresen/ISLES2024-MIPLAB-CTA/inference.py \
     --input_path $input_path \
     --output_path $output_path > $output_dir/output.log
 
