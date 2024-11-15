@@ -1,41 +1,49 @@
 #!/bin/bash
-#SBATCH --nodes=1               
-#SBATCH --ntasks=1               
-#SBATCH --time=02:00:00          
-#SBATCH --mem=16G                
-#SBATCH --partition=gpu-v100     
-#SBATCH --gres=gpu:1  
+#SBATCH --nodes=1                # Number of nodes
+#SBATCH --ntasks=1               # Number of tasks
+#SBATCH --time=02:00:00          # Time limit
+#SBATCH --mem=16G                # Memory
+#SBATCH --partition=gpu-v100     # GPU partition
+#SBATCH --gres=gpu:1             # Request 1 GPU
 
 # Load necessary modules
 module load python/3.12.5
 module load cuda/12.1.1
 
+# Activate the Conda environment
 source /home/kirsten.andresen/miniforge3/etc/profile.d/conda.sh
 conda activate /work/forkert_lab/kirsten_andresen/conda_folder/CTA_env
 
-
-python -c "import sys; print(sys.executable)"
-python -c "import SimpleITK; print('SimpleITK is ready')"
-
-
-# Define the output directory for logs and results
+# Define paths for logs and outputs
 output_dir="outputs/job_${SLURM_JOB_ID}"
 mkdir -p $output_dir
 
-# Define paths
+# Log the Python executable to verify the environment
+python -c "import sys; print(sys.executable)" > $output_dir/setup_check.log
+
+# Test if SimpleITK is available
+python -c "import SimpleITK; print('SimpleITK is working!')" >> $output_dir/setup_check.log 2>&1
+
+# Check if the previous test succeeded
+if [ $? -ne 0 ]; then
+    echo "SimpleITK test failed. Check the setup_check.log for details." > $output_dir/status.log
+    exit 1
+fi
+
+# Paths for input and output
 input_path="/work/forkert_lab/isles24_data/preprocessed/0001"
 output_path="$output_dir"
 
-# Run the Python inference script and save logs
+# Run the Python inference script
 python /work/forkert_lab/kirsten_andresen/ISLES2024-MIPLAB-CTA/inference.py \
     --input_path $input_path \
-    --output_path $output_path > $output_dir/output.log
+    --output_path $output_path > $output_dir/output.log 2>&1
 
-# Check if the Python script ran successfully and log the status
+# Log the status of the Python script
 if [ $? -eq 0 ]; then
-    echo "Job completed successfully." > $output_dir/status.log
+    echo "Inference completed successfully." > $output_dir/status.log
 else
-    echo "Job failed." > $output_dir/status.log
+    echo "Inference failed. Check output.log for details." > $output_dir/status.log
 fi
 
 # Deactivate the Conda environment
