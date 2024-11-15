@@ -4,7 +4,7 @@
 #SBATCH --time=02:00:00          
 #SBATCH --mem=16G                
 #SBATCH --partition=gpu-v100     
-#SBATCH --gres=gpu:1             
+#SBATCH --gres=gpu:1  
 
 # Load necessary modules
 module load python/3.12.5
