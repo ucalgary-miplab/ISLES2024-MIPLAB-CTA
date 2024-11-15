@@ -18,18 +18,6 @@ conda activate /work/forkert_lab/kirsten_andresen/conda_folder/CTA_env
 output_dir="outputs/job_${SLURM_JOB_ID}"
 mkdir -p $output_dir
 
-# Log the Python executable to verify the environment
-python -c "import sys; print(sys.executable)" > $output_dir/setup_check.log
-
-# Test if SimpleITK is available
-python -c "import SimpleITK; print('SimpleITK is working!')" >> $output_dir/setup_check.log 2>&1
-
-# Check if the previous test succeeded
-if [ $? -ne 0 ]; then
-    echo "SimpleITK test failed. Check the setup_check.log for details." > $output_dir/status.log
-    exit 1
-fi
-
 # Paths for input and output
 input_path="/work/forkert_lab/isles24_data/preprocessed/0001"
 output_path="$output_dir"
