@@ -13,6 +13,11 @@ module load cuda/12.1.1
 source /home/kirsten.andresen/miniforge3/etc/profile.d/conda.sh
 conda activate /work/forkert_lab/kirsten_andresen/conda_folder/CTA_env
 
+
+python -c "import sys; print(sys.executable)"
+python -c "import SimpleITK; print('SimpleITK is ready')"
+
+
 # Define the output directory for logs and results
 output_dir="outputs/job_${SLURM_JOB_ID}"
 mkdir -p $output_dir
