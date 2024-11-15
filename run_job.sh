@@ -10,6 +10,9 @@
 module load python/3.12.5
 module load cuda/12.1.1
 
+source /home/kirsten.andresen/miniforge3/etc/profile.d/conda.sh
+conda activate /work/forkert_lab/kirsten_andresen/conda_folder/CTA_env
+
 # Define the output directory for logs and results
 output_dir="outputs/job_${SLURM_JOB_ID}"
 mkdir -p $output_dir
