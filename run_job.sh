@@ -1,10 +1,10 @@
 #!/bin/bash
-#SBATCH --nodes=1                # Number of nodes
-#SBATCH --ntasks=1               # Number of tasks
-#SBATCH --time=02:00:00          # Time limit
-#SBATCH --mem=16G                # Memory
-#SBATCH --partition=gpu-v100     # GPU partition
-#SBATCH --gres=gpu:1             # Request 1 GPU
+#SBATCH --nodes=1               
+#SBATCH --ntasks=1             
+#SBATCH --time=02:00:00          
+#SBATCH --mem=16G                
+#SBATCH --partition=gpu-v100     
+#SBATCH --gres=gpu:1            
 
 # Load necessary modules
 module load python/3.12.5
@@ -12,7 +12,7 @@ module load cuda/12.1.1
 
 # Activate the Conda environment
 source /home/kirsten.andresen/miniforge3/etc/profile.d/conda.sh
-source activate /work/forkert_lab/kirsten_andresen/conda_folder/CTA_env
+conda activate /work/forkert_lab/kirsten_andresen/conda_folder/CTA_env
 
 # Define paths for logs and outputs
 output_dir="outputs/job_${SLURM_JOB_ID}"
@@ -35,4 +35,4 @@ else
 fi
 
 # Deactivate the Conda environment
-source deactivate
+conda deactivate
