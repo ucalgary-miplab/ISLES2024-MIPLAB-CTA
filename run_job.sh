@@ -12,7 +12,9 @@ module load cuda/12.1.1
 
 # Activate the Conda environment
 source /home/kirsten.andresen/miniforge3/etc/profile.d/conda.sh
-source activate /work/forkert_lab/kirsten_andresen/conda_folder/CTA_env
+conda activate /work/forkert_lab/kirsten_andresen/conda_folder/CTA_env
+
+pip intall SimpleITK
 
 # Define paths for logs and outputs
 output_dir="outputs/job_${SLURM_JOB_ID}"
@@ -29,4 +31,4 @@ else
 fi
 
 # Deactivate the Conda environment
-source deactivate
+conda deactivate
