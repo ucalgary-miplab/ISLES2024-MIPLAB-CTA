@@ -18,14 +18,8 @@ source activate /work/forkert_lab/kirsten_andresen/conda_folder/CTA_env
 output_dir="outputs/job_${SLURM_JOB_ID}"
 mkdir -p $output_dir
 
-# Paths for input and output
-input_path="/work/forkert_lab/isles24_data/preprocessed/0001"
-output_path="$output_dir"
-
 # Run the Python inference script
-python /work/forkert_lab/kirsten_andresen/ISLES2024-MIPLAB-CTA/inference.py \
-    --input_path $input_path \
-    --output_path $output_path > $output_dir/output.log 2>&1
+python /work/forkert_lab/kirsten_andresen/ISLES2024-MIPLAB-CTA/inference.py > $output_dir/output.log 2>&1
 
 # Log the status of the Python script
 if [ $? -eq 0 ]; then
