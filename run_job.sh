@@ -6,15 +6,20 @@
 #SBATCH --partition=gpu-v100     
 #SBATCH --gres=gpu:1            
 
-# Load necessary modules
-module load python/3.12.5
+# Ensure a clean environment
+module purge
+
+# Load necessary CUDA module (do not load Python module to avoid conflicts)
 module load cuda/12.1.1
 
 # Activate the Conda environment
 source /home/kirsten.andresen/miniforge3/etc/profile.d/conda.sh
 conda activate /work/forkert_lab/kirsten_andresen/conda_folder/CTA_env
 
-pip install SimpleITK
+# Verify the environment (optional debug logs)
+echo "Python Executable: $(which python)"
+python -c "import sys; print('Python Path:', sys.path)"
+python -c "import torch; print('Torch Version:', torch.__version__)"
 
 # Define paths for logs and outputs
 output_dir="outputs/job_${SLURM_JOB_ID}"
