@@ -5,8 +5,8 @@ from src.prediction import predict_infarct
 
 
 def run():
-    INPUT_PATH = "/input"
-    OUTPUT_PATH = "/output"
+    INPUT_PATH = "/work/forkert_lab/kirsten_andresen/ISLES2024-MIPLAB-CTA/test/input"
+    OUTPUT_PATH = "/work/forkert_lab/kirsten_andresen/ISLES2024-MIPLAB-CTA/test/output"
     RESOURCE_PATH = "resources"
 
     # Find the images in challenge space and clinical data
