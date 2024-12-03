@@ -11,10 +11,12 @@ module purge
 
 # Load necessary CUDA module (do not load Python module to avoid conflicts)
 module load cuda/12.1.1
+module load python/3.12.5
+module load gcc/13.3.0
 
 # Activate the Conda environment
-source /home/kirsten.andresen/miniforge3/etc/profile.d/conda.sh
-conda activate /work/forkert_lab/kirsten_andresen/conda_folder/CTA_env
+#source /home/kirsten.andresen/miniforge3/etc/profile.d/conda.sh
+source activate /work/forkert_lab/kirsten_andresen/conda_folder/CTA_env
 
 # Verify the environment (optional debug logs)
 echo "Python Executable: $(which python)"
@@ -36,4 +38,4 @@ else
 fi
 
 # Deactivate the Conda environment
-conda deactivate
+source deactivate
